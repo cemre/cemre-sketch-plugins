@@ -18,10 +18,15 @@ Scales the currently selected object to double its size. It scales the attribute
 **Shortcut: ctrl alt 2** (Think 200%)
 
 ### Paste and swap
-Pastes whatever is in the clipboard into the position and dimensions of the currently selected object, and removes the selected object afterwards. Example use: swap rectangles (placeholders) with real images (actual avatars).
+Pastes the image in the clipboard into the position and dimensions of the currently selected object, removes the object afterwards. Useful for swapping assets.
 
 **Shortcut: ctrl alt command v**
 
+
+### Paste into
+Pastes the image in the clipboard and masks it with the currently selected rectangle. It sizes the image to fill the rectangle's dimensions. Useful for pasting avatar images in placeholder rectangles.
+
+**Shotcut: ctrl alt command m**
 
 ----
 

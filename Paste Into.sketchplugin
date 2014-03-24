@@ -1,0 +1,50 @@
+// Paste Into (ctrl alt command m)
+
+#import 'elegantchaos.js'
+
+com.elegantchaos.execute(function() {
+	mask  = doc.selectedLayers()[0];
+	maskParent = [mask parentGroup];
+
+	newGroup = [MSLayerGroup new]; 
+	[maskParent addLayer:newGroup];
+	[newGroup setName:"Masked bitmap"];
+	
+	[mask removeFromParent];		
+	[newGroup addLayer:mask];
+
+	com.elegantchaos.sendAction('paste:');
+
+	var pasted = doc.selectedLayers()[0];
+
+	[pasted removeFromParent];
+	[newGroup addLayer:pasted];
+
+	[mask setHasClippingMask:true];
+
+	maskWidth = [[mask frame] width];
+	maskHeight = [[mask frame] height];
+	pastedWidth = [[pasted frame] width];
+	pastedHeight = [[pasted frame] height];
+
+	aspectMask =  maskWidth / maskHeight;
+	aspectPasted = pastedWidth / pastedHeight;
+
+	scale = 1;
+
+	if (aspectPasted > aspectMask) {
+		scale = maskHeight / pastedHeight;
+	} else {
+		scale = maskWidth / pastedWidth;
+	}
+
+	[pasted multiplyBy: scale];
+
+	newX = Math.round([[mask frame] midX] - ([[pasted frame] width] / 2));
+	newY = Math.round([[mask frame] midY] - ([[pasted frame] height] / 2));
+
+	[[pasted frame] setX: newX];
+	[[pasted frame] setY: newY];
+});
+
+
