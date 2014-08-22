@@ -27,7 +27,12 @@ Pastes the image in the clipboard into the position and dimensions of the curren
 ### Paste into
 Pastes the image in the clipboard and masks it with the currently selected rectangle. It sizes the image to fill the rectangle's dimensions. Useful for pasting avatar images in placeholder rectangles.
 
-**Shotcut: ctrl alt command m**
+**Shortcut: ctrl alt command m**
+
+### Make Guide
+Makes the currently selected rectangle a transparent red and names it "Guide". Useful for spec sheets.
+
+**Shortcut: cmd alt r**
 
 ----
 

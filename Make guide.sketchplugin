@@ -1,0 +1,14 @@
+// Sketch Plugin: Make red (command alt r)
+
+(function() {
+
+    for (var i=0; i<[selection count]; i++) {
+        var layer = [selection objectAtIndex:i]
+        [layer setName:"Guide"]
+        var layerStyle = [layer style]
+        var redColor = [MSColor colorWithHex: "#ff0000" alpha: 0.2]
+
+        [[[layerStyle fills] firstObject] setColor: redColor]
+    }
+
+})();
