@@ -49,6 +49,60 @@ com.elegantchaos = (function() {
 		}
 	};
 
+	// return the Sketch version number
+	// (we fish this out of the main info dictionary for the application)
+	my.version = function() {
+		var items = my.versionComponents();
+
+		var result = items[0] + "." + items[1];
+		if (items[2] != 0)
+			result += "." + items[2];
+
+		return result;
+	}
+
+	// return the Sketch version number, split into three components
+	// (we fish this out of the main info dictionary for the application)
+	my.versionComponents = function() {
+		var info = [[NSBundle mainBundle] infoDictionary];
+		var items = [[(info["CFBundleShortVersionString"]) componentsSeparatedByString:"."] mutableCopy];
+
+		while(items.length() < 3)
+			[items addObject:"0"];
+
+		return items;
+	}
+
+	// return the main Sketch version number (eg 2 in 2.4.3)
+	my.majorVersion = function() {
+		var items = my.versionComponents();
+
+		return items[0];
+	}
+
+	// return the minor Sketch version number (eg 4 in 2.4.3)
+	my.minorVersion = function() {
+		var items = my.versionComponents();
+
+		return items[1];
+	}
+
+	// return the fix Sketch version number (eg 3 in 2.4.3)
+	my.fixVersion = function() {
+		var items = my.versionComponents();
+
+		return items[2];
+	}
+
+	// return the exact Sketch build number
+  // (we fish this out of the main info dictionary for the application)
+	my.buildNumber = function() {
+		var info = [[NSBundle mainBundle] infoDictionary];
+		var result = info["CFBundleVersion"];
+
+		return result;
+	}
+
 	// perform an action (in the way that a menu or button typically does)
 	// what we're doing here is sending a command (an Objective-C method call)
 	// down a chain of objects (the current window,
@@ -111,7 +165,7 @@ com.elegantchaos = (function() {
 
 		setup(window);
 
-		[window setReleasedWhenClosed:NO];
+		[window setReleasedWhenClosed:false];
 		[window makeKeyAndOrderFront:nil];
 
 		return window;
@@ -125,12 +179,12 @@ com.elegantchaos = (function() {
 		var mask = NSTitledWindowMask + NSClosableWindowMask + NSMiniaturizableWindowMask + NSResizableWindowMask + NSUtilityWindowMask;
 		var window = [[NSPanel alloc] initWithContentRect:frame styleMask:mask backing:NSBackingStoreBuffered defer:true];
 		window.title = title;
-		window.floatingPanel = YES;
+		window.floatingPanel = true;
 		[window setFrameAutosaveName:autosave];
 
 		setup(window);
 
-		[window setReleasedWhenClosed:NO];
+		[window setReleasedWhenClosed:false];
 		[window makeKeyAndOrderFront:nil];
 
 		return window;
@@ -147,19 +201,19 @@ com.elegantchaos = (function() {
 			var contentSize = [scrollview contentSize];
 
 			[scrollview setBorderType:NSNoBorder];
-			[scrollview setHasVerticalScroller:YES];
-			[scrollview setHasHorizontalScroller:YES];
+			[scrollview setHasVerticalScroller:true];
+			[scrollview setHasHorizontalScroller:true];
 			[scrollview setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
 
 			var FLT_MAX = 3.40282347e+38;
 			var view = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, contentSize.width, contentSize.height)];
 			[view setMinSize:NSMakeSize(0.0, contentSize.height)];
 			[view setMaxSize:NSMakeSize(FLT_MAX, FLT_MAX)];
-			[view setVerticallyResizable:YES];
-			[view setHorizontallyResizable:YES];
+			[view setVerticallyResizable:true];
+			[view setHorizontallyResizable:true];
 			[view setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
 			[[view textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
-			[[view textContainer] setWidthTracksTextView:NO];
+			[[view textContainer] setWidthTracksTextView:false];
 
 			[scrollview setDocumentView:view];
 			[window setContentView:scrollview];
@@ -193,5 +247,25 @@ com.elegantchaos = (function() {
 
 	};
 
+	my.launch = function(cmd, arguments) {
+	    var task = [[NSTask alloc] init];
+	    [task setLaunchPath:cmd];
+
+		if (arguments)
+			[task setArguments:arguments];
+  
+	    var pipe = [NSPipe pipe];
+	    [task setStandardOutput: pipe];
+  
+	    var file = [pipe fileHandleForReading];
+		
+	    [task launch];
+
+	    var data = [file readDataToEndOfFile];
+	    var output = [[NSString alloc] initWithData: data encoding:NSUTF8StringEncoding];
+
+	    log(output);  
+	};
+	
 	return my;
 }());
