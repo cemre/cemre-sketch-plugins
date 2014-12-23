@@ -9,14 +9,17 @@ com.elegantchaos.execute(function() {
 
 	var pasted_object = doc.selectedLayers()[0];
 
-	var first_position  = { left: [[first_object frame] left], top: [[first_object frame] top], width: [[first_object frame] width], height: [[first_object frame] height] };
+	var first_position  = {
+		x: first_object.frame().x(),
+		y: first_object.frame().y(),
+		width: first_object.frame().width(),
+		height: first_object.frame().height()
+	};
 
-	var frame = [pasted_object frame];
-
-	[frame setX: (first_position.left)];
-	[frame setY: (first_position.top)];
-	[frame setWidth: (first_position.width)];
-	[frame setHeight: (first_position.height)];
+	pasted_object.frame().x = first_position.x;
+	pasted_object.frame().y = first_position.y;
+	pasted_object.frame().width = first_position.width;
+	pasted_object.frame().height = first_position.height;
 
 	[first_object removeFromParent];
 });
