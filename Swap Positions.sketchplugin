@@ -1,0 +1,18 @@
+// Swap two elements' positions
+// Original code from @bomberstudios: https://github.com/bomberstudios/sketch-commands/blob/master/Position/Swap%20Positions.jstalk
+
+if ( selection.count() == 2 ){
+
+  var first_object = selection[0],
+      second_object = selection[1],
+      first_position  = { x: first_object.frame().x(), y: first_object.frame().y() },
+      second_position = { x: second_object.frame().x(), y: second_object.frame().y() };
+
+  second_object.frame().x = first_position.x
+  second_object.frame().y = first_position.y
+  
+  first_object.frame().x = second_position.x
+  first_object.frame().y = second_position.y
+} else {
+  [doc showMessage:"You need to select exactly two objects"]
+}

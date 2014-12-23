@@ -4,28 +4,28 @@
 
 com.elegantchaos.execute(function() {
 	mask  = doc.selectedLayers()[0];
-	maskParent = [mask parentGroup];
+	maskParent = mask.parentGroup();
 
-	newGroup = [MSLayerGroup new]; 
-	[maskParent addLayer:newGroup];
-	[newGroup setName:"Masked bitmap"];
+	newGroup = MSLayerGroup.new(); 
+	maskParent.addLayers([newGroup]);
+	newGroup.setName("Masked bitmap");
 	
-	[mask removeFromParent];		
-	[newGroup addLayer:mask];
+	mask.removeFromParent();		
+	newGroup.addLayers([mask]);
 
 	com.elegantchaos.sendAction('paste:');
 
 	var pasted = doc.selectedLayers()[0];
 
-	[pasted removeFromParent];
-	[newGroup addLayer:pasted];
+	pasted.removeFromParent();
+	newGroup.addLayers([pasted]);
 
-	[mask setHasClippingMask:true];
+	mask.setHasClippingMask(true);
 
-	maskWidth = [[mask frame] width];
-	maskHeight = [[mask frame] height];
-	pastedWidth = [[pasted frame] width];
-	pastedHeight = [[pasted frame] height];
+	maskWidth = mask.frame().width();
+	maskHeight = mask.frame().height();
+	pastedWidth = pasted.frame().width();
+	pastedHeight = pasted.frame().height();
 
 	aspectMask =  maskWidth / maskHeight;
 	aspectPasted = pastedWidth / pastedHeight;
@@ -40,11 +40,11 @@ com.elegantchaos.execute(function() {
 
 	[pasted multiplyBy: scale];
 
-	newX = Math.round([[mask frame] midX] - ([[pasted frame] width] / 2));
-	newY = Math.round([[mask frame] midY] - ([[pasted frame] height] / 2));
+	newX = Math.round(mask.frame().midX() - (pasted.frame().width() / 2));
+	newY = Math.round(mask.frame().midY() - (pasted.frame().height() / 2));
 
-	[[pasted frame] setX: newX];
-	[[pasted frame] setY: newY];
+	pasted.frame().x = newX;
+	pasted.frame().y = newY;
 });
 
 

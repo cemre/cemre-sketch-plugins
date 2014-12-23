@@ -4,17 +4,12 @@
 
 com.elegantchaos.execute(function() {
 	var selected = doc.selectedLayers()[0];
-	var frame = [selected frame];
 
+	var midX = selected.frame().midX();
+	var midY = selected.frame().midY();
 
-	var midX = [frame midX];
-	var midY = [frame midY];
+	selected.multiplyBy(0.5);
 
-	[selected multiplyBy:0.5];
-
-	var newX = Math.round(midX - ([frame width] / 2));
-	var newY = Math.round(midY - ([frame height] / 2));
-
-	[frame setX: newX];
-	[frame setY: newY];
+	selected.frame().midX = midX
+	selected.frame().midY = midY
 });
