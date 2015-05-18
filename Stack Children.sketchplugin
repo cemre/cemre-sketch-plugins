@@ -1,0 +1,33 @@
+// Stack Children (ctrl alt command t)
+// Based on @bomberstudios Space Vertical. Thanks Ale!
+// by Cemre Gungor (p@cem.re)
+
+
+function toJSArray(arr) {
+  var len = [arr count],
+      res = [];
+  while(len--){
+    res.push(arr[len]);
+  }
+  return res;
+}
+function sort_by_position(a,b){
+  return [[a frame] top] - [[b frame] top];
+}
+
+if(selection.count() > 0 && selection[0] && selection[0].className().toString() == "MSLayerGroup") {
+	children = selection[0].layers().array();
+
+	var sorted_selection = toJSArray(children).sort(sort_by_position),
+	    first_element = sorted_selection[0],
+	    top_position = [[first_element frame] top];
+
+	sorted_selection.forEach(function(layer){
+	  [[layer frame] setY:top_position];
+	  top_position = [[layer frame] top] + [[layer frame] height];
+	});
+} else {
+	var app = [NSApplication sharedApplication];
+	[app displayDialog:"Please select a group whose children you want to stack" withTitle:"Error"];	
+}
+

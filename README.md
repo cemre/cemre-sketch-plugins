@@ -7,6 +7,11 @@ Download the ZIP and copy all the files to the Sketch plugins directory at:
 * (app store) `~/Library/Containers/com.bohemiancoding.sketch/Data/Library/Application Support/sketch/Plugins`
 * (beta) `~/Library/Application Support/sketch/Plugins`
 
+### Stack children (NEW)
+Aligns all the child layers of a group so that they are stacked vertically in a table. This is great for prototyping table cells with symbols, when you change the paddings or the size, you can use this to quickly lay the table out.
+
+**Shortcut: ctrl alt cmd t**
+
 
 ### Scale half
 Scales the currently selected object in half. It scales the attributes as well.
