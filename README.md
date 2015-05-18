@@ -2,16 +2,16 @@
 
 ### Installation
 
-Download the ZIP and copy all the files to the Sketch plugins directory at:
-* In Finder, use `Go > Go To Folder` and paste the following into the box.
-* (app store) `~/Library/Containers/com.bohemiancoding.sketch/Data/Library/Application Support/sketch/Plugins`
-* (beta) `~/Library/Application Support/sketch/Plugins`
+* Download the [ZIP file](https://github.com/cemre/cemre-sketch-plugins/archive/master.zip)
+* In Sketch, select Plugins > Reveal plugins folder
+* Move all the files from the ZIP into the plugins folder
 
-### Stack children (NEW)
+### Stack Children (NEW)
 Aligns all the child layers of a group so that they are stacked vertically in a table. This is great for prototyping table cells with symbols, when you change the paddings or the size, you can use this to quickly lay the table out.
 
 **Shortcut: ctrl alt cmd t**
 
+![Demo of stacker plugin](https://cloud.githubusercontent.com/assets/200566/7672840/4625c7d2-fcb7-11e4-95f4-32f9e064ede4.gif)
 
 ### Scale half
 Scales the currently selected object in half. It scales the attributes as well.
