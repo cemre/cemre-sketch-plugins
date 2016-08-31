@@ -25,6 +25,9 @@ if(selection.count() > 0 && selection[0] && selection[0].className().toString() 
 	sorted_selection.forEach(function(layer){
 	  [[layer frame] setY:top_position];
 	  top_position = [[layer frame] top] + [[layer frame] height];
+	  
+	  selection[0].resizeToFitChildrenWithOption(1);
+	  
 	});
 } else {
 	var app = [NSApplication sharedApplication];
