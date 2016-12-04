@@ -16,7 +16,7 @@ function sort_by_position(a,b){
 }
 
 if(selection.count() > 0 && selection[0] && selection[0].className().toString() == "MSLayerGroup") {
-	children = selection[0].layers().array();
+	children = selection[0].layers();
 
 	var sorted_selection = toJSArray(children).sort(sort_by_position),
 	    first_element = sorted_selection[0],
